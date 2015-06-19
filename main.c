@@ -24,8 +24,6 @@ int main()
 {
 	char cmd[CMD_MAXLEN];
 	initSys();		
-	curPath[0]="root";
-	curDirBlock=getDirBlock(curPath[0],curPathDep);
 	do
 	{		
 		showPwd();	
@@ -42,6 +40,9 @@ void initSys()
 {
 	readDisk(&myDisk,sizeof(MyDisk),1,0);
 //	format();
+	curPath[0]="root";
+	curDirBlock=getDirBlock(&myDisk,curPath,curPathDep);
+//	mkDir(&myDisk,curDirBlock,0,"newDir@root");
 	showMyDisk(&myDisk);
 	
 }
@@ -78,6 +79,10 @@ int doCmd(char *cmd)
 	{
 		cd(str);
 		curDirBlock=getDirBlock(curPath,curPathDep);
+	}
+	else if(!strncmp(str,"mkdir ",3))
+	{
+		;
 	}
 	else 
 		printf("command \'%s\' is not correct\n",str);
@@ -153,10 +158,9 @@ void format()//格式化
 	//设置root目录的DirBlock
 	myDisk.inodeTable[0].blockPoint[0]=0;
 	myDisk.inodeTable[0].fileType=2;
+	myDisk.inodeUsedMap[0]=1;
 
 	memset(&rootDirBlock,0,sizeof(DirBlock));
-	rootDirBlock.inodeID[0]=1;
-	strcpy(&rootDirBlock.fileName[0],"testFile@root");
 	writeDisk(&rootDirBlock,BLOCK_SIZE,1,sizeof(MyDisk));
 }
 

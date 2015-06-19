@@ -6,26 +6,30 @@
 --------------------Configuration: MYFILESYS - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\lenovo\AppData\Local\Temp\RSP17F6.tmp" with contents
+Creating temporary file "C:\Users\lenovo\AppData\Local\Temp\RSP161E.tmp" with contents
 [
 /nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/MYFILESYS.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
-"D:\nuaa\c操作系统\MyFileSys\DIrBlock.c"
+"D:\nuaa\c操作系统\MyFileSys\main.c"
 ]
-Creating command line "cl.exe @C:\Users\lenovo\AppData\Local\Temp\RSP17F6.tmp" 
-Creating temporary file "C:\Users\lenovo\AppData\Local\Temp\RSP17F7.tmp" with contents
+Creating command line "cl.exe @C:\Users\lenovo\AppData\Local\Temp\RSP161E.tmp" 
+Creating temporary file "C:\Users\lenovo\AppData\Local\Temp\RSP161F.tmp" with contents
 [
 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/MYFILESYS.pdb" /debug /machine:I386 /out:"Debug/MYFILESYS.exe" /pdbtype:sept 
 ".\Debug\DIrBlock.obj"
 ".\Debug\main.obj"
 ".\Debug\MyDisk.obj"
 ]
-Creating command line "link.exe @C:\Users\lenovo\AppData\Local\Temp\RSP17F7.tmp"
+Creating command line "link.exe @C:\Users\lenovo\AppData\Local\Temp\RSP161F.tmp"
 <h3>Output Window</h3>
 Compiling...
-DIrBlock.c
-D:\nuaa\c操作系统\MyFileSys\DIrBlock.c(9) : warning C4013: 'printf' undefined; assuming extern returning int
-D:\nuaa\c操作系统\MyFileSys\DIrBlock.c(31) : warning C4013: 'malloc' undefined; assuming extern returning int
-D:\nuaa\c操作系统\MyFileSys\DIrBlock.c(32) : warning C4013: 'readDisk' undefined; assuming extern returning int
+main.c
+D:\nuaa\c操作系统\MyFileSys\main.c(41) : warning C4013: 'readDisk' undefined; assuming extern returning int
+D:\nuaa\c操作系统\MyFileSys\main.c(44) : warning C4013: 'getDirBlock' undefined; assuming extern returning int
+D:\nuaa\c操作系统\MyFileSys\main.c(44) : warning C4047: '=' : 'struct DirBlock *' differs in levels of indirection from 'int '
+D:\nuaa\c操作系统\MyFileSys\main.c(46) : warning C4013: 'showMyDisk' undefined; assuming extern returning int
+D:\nuaa\c操作系统\MyFileSys\main.c(52) : warning C4013: 'setDate' undefined; assuming extern returning int
+D:\nuaa\c操作系统\MyFileSys\main.c(53) : warning C4013: 'writeDisk' undefined; assuming extern returning int
+D:\nuaa\c操作系统\MyFileSys\main.c(81) : warning C4047: '=' : 'struct DirBlock *' differs in levels of indirection from 'int '
 Linking...
 
 

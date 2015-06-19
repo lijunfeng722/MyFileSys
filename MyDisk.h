@@ -12,6 +12,7 @@ typedef struct
 	SuperBlock superB;
 	//位示图 why书上用二维数组
 	int blockUsedMap[BLOCK_NUM];
+	int inodeUsedMap[INODE_NUM];
 	MyInode inodeTable[INODE_NUM];
 
 }MyDisk;
