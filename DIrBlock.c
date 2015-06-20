@@ -29,7 +29,6 @@ DirBlock * getDirBlock(MyDisk *disk,char ** dirPath,int dep,short * dirBlockp)
 	DirBlock * tBlock;
 	int i=2;
 	short pi=0,pb=0;
-	printf("in getDirB  *dirPath=%s\n",*dirPath);
 	tBlock=(DirBlock *)malloc(sizeof(DirBlock));
 	readDisk(tBlock,sizeof(DirBlock),1,sizeof(MyDisk));//rootµÄdirBlock
 	while(i<=dep)
@@ -41,7 +40,7 @@ DirBlock * getDirBlock(MyDisk *disk,char ** dirPath,int dep,short * dirBlockp)
 	}
 	
 	*dirBlockp=pb;
-	showDirBlock(tBlock);
+//	showDirBlock(tBlock);
 	return tBlock;
 }
 
