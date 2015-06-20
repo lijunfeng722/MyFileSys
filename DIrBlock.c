@@ -4,6 +4,7 @@
 void showDirBlock(DirBlock * tBlock)
 {
 	int i=0;
+	printf("show current DirBlock:\n");
 	while(tBlock->inodeID[i])
 	{
 		printf("inodeID = %d , file = %s \n",tBlock->inodeID[i],tBlock->fileName[i]);
@@ -23,23 +24,23 @@ short getFileInodeID(DirBlock * tBlock,char * fileName)
 	return 0;
 }
 
-DirBlock * getDirBlock(MyDisk *disk,char ** dirPath,int dep)
+DirBlock * getDirBlock(MyDisk *disk,char ** dirPath,int dep,short * dirBlockp)
 {
 	DirBlock * tBlock;
-	int i=1;
+	int i=2;
+	short pi=0,pb=0;
 	printf("in getDirB  *dirPath=%s\n",*dirPath);
 	tBlock=(DirBlock *)malloc(sizeof(DirBlock));
-	readDisk(tBlock,sizeof(DirBlock),1,sizeof(MyDisk));//读出root的DirBlock
-	while(i<dep)
+	readDisk(tBlock,sizeof(DirBlock),1,sizeof(MyDisk));//root的dirBlock
+	while(i<=dep)
 	{
-		short pi=0,pb;
 		pi=getFileInodeID(tBlock,*(dirPath+(i-1)));
 		++i;
-		pb=disk->inodeTable[pi].blockPoint;
+		pb=disk->inodeTable[pi].blockPoint[0];
 		readDisk(tBlock,sizeof(DirBlock),1,sizeof(MyDisk)+pb*BLOCK_SIZE);
 	}
 	
-
+	*dirBlockp=pb;
 	showDirBlock(tBlock);
 	return tBlock;
 }
@@ -74,7 +75,14 @@ int mkDir(MyDisk * disk,DirBlock * curBlock,short curBlockp,char * dirName)
 
 	//在curDirBlock中加入新的inode指针,指向inodeTable中的位置
 	while(curBlock->inodeID[i])  
+	{
+		if(!strcmp(dirName,curBlock->fileName[i]))//已存在同名文件
+		{	
+			printf("已存在同名文件，无法新建!\n");
+			return 0;
+		}
 		i++;
+	}
 	curBlock->inodeID[i]=pi;
 	strcpy(curBlock->fileName[i],dirName);
 	writeDisk(curBlock,BLOCK_SIZE,1,sizeof(MyDisk)+curBlockp*BLOCK_SIZE);
@@ -90,5 +98,6 @@ int mkDir(MyDisk * disk,DirBlock * curBlock,short curBlockp,char * dirName)
 	disk->blockUsedMap[pb]=1;
 	newDirBlock=(DirBlock *)malloc(sizeof(DirBlock));
 	memset(newDirBlock,0,sizeof(DirBlock));
-	writeDisk(&newDirBlock,BLOCK_SIZE,1,sizeof(MyDisk)+pb*BLOCK_SIZE);
+	writeDisk(newDirBlock,BLOCK_SIZE,1,sizeof(MyDisk)+pb*BLOCK_SIZE);
+	return 1;
 }
